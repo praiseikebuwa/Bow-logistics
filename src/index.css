@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.625rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+/* ============ BOW Logistics — courier poster system ============ */
+
+:root {
+  --bow-yellow: #ffd939;
+  --bow-yellow-deep: #f2c200;
+  --bow-black: #161616;
+  --bow-ink: #1e1e1e;
+  --bow-paper: #fffdf6;
+  --bow-ease: cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bow-black);
+  color: var(--bow-ink);
+  font-family: "Urbanist", -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: "Oswald", "Urbanist", sans-serif;
+}
+
+/* --- hero word reveal: chars rise out of a clipped mask --- */
+.word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.word-char {
+  display: inline-block;
+  transform: translateY(115%) rotate(4deg);
+  animation: char-rise 0.7s var(--bow-ease) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes char-rise {
+  to {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* --- scroll reveal --- */
+.rv {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s var(--bow-ease);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+.rv.rv-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- marquee ticker --- */
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 18s linear infinite;
+}
+
+/* --- floating scroll hint --- */
+@keyframes float-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.float-hint {
+  animation: float-hint 3s ease-in-out infinite;
+}
+
+/* --- road dashes drift --- */
+@keyframes dash-drift {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+.road-line {
+  stroke-dasharray: 10 14;
+  animation: dash-drift 1.6s linear infinite;
+}
+
+/* --- WhatsApp FAB entrance + pulse ring --- */
+@keyframes fab-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.fab-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--bow-yellow);
+  animation: fab-pulse 2.2s ease-out infinite;
+  z-index: -1;
+}
+
+/* --- hero diagonal stripes texture --- */
+.stripe-bg {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(22, 22, 22, 0.05) 0 2px,
+    transparent 2px 14px
+  );
+}
+
+/* --- service row tap feedback --- */
+.service-row {
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s var(--bow-ease);
+}
+.service-row:active {
+  background: var(--bow-yellow);
+  transform: scale(0.985);
+}
+@media (hover: hover) {
+  .service-row:hover {
+    background: var(--bow-yellow);
+  }
+  .service-row:hover .service-arrow {
+    transform: translateX(6px);
+  }
+}
+.service-arrow {
+  transition: transform 0.25s var(--bow-ease);
+}
+
+::selection {
+  background: var(--bow-ink);
+  color: var(--bow-yellow);
+}
